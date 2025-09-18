@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,53 +13,53 @@
             --secondary: #11676a;
             --accent: #b0b32a;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f7f9;
         }
-        
+
         .sidebar {
             background: linear-gradient(to bottom, var(--primary), var(--secondary));
         }
-        
+
         .nav-item {
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
         }
-        
+
         .nav-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
             border-left: 4px solid var(--accent);
         }
-        
+
         .nav-item.active {
             background-color: rgba(255, 255, 255, 0.15);
             border-left: 4px solid var(--accent);
         }
-        
+
         .logout-btn {
             background-color: rgba(179, 42, 42, 0.8);
             transition: all 0.3s ease;
         }
-        
+
         .logout-btn:hover {
             background-color: rgba(179, 42, 42, 1);
             transform: translateY(-2px);
         }
-        
+
         .content-card {
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             border: 1px solid #eaeaea;
         }
-        
+
         .page-title {
             color: var(--primary);
             position: relative;
             padding-bottom: 15px;
         }
-        
+
         .page-title::after {
             content: '';
             position: absolute;
@@ -69,7 +70,7 @@
             background: var(--accent);
             border-radius: 2px;
         }
-        
+
         .badge-count {
             background-color: #ef4444;
             color: white;
@@ -95,33 +96,38 @@
                 </div>
                 <h1 class="text-2xl font-bold">Super Admin</h1>
             </div>
-            
+
             <nav class="space-y-2">
-                <a href="{{ url('/admin/dashboard') }}" class="nav-item flex items-center px-4 py-3 rounded-lg {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+                <a href="{{ url('/admin/dashboard') }}"
+                    class="nav-item flex items-center px-4 py-3 rounded-lg {{ request()->is('admin/dashboard') ? 'active' : '' }}">
                     <i class="fas fa-home w-6 text-center mr-3"></i>
                     <span>Dashboard</span>
                 </a>
-                
-                <a href="{{ url('/admin/bumdes') }}" class="nav-item flex items-center px-4 py-3 rounded-lg {{ request()->is('admin/bumdes*') ? 'active' : '' }}">
+
+                <a href="{{ url('/admin/bumdes') }}"
+                    class="nav-item flex items-center px-4 py-3 rounded-lg {{ request()->is('admin/bumdes*') ? 'active' : '' }}">
                     <i class="fas fa-building w-6 text-center mr-3"></i>
                     <span>Kelola BUMDES</span>
                 </a>
-             
-                
-                <a href="{{ url('/admin/laporan') }}" class="nav-item flex items-center px-4 py-3 rounded-lg {{ request()->is('admin/laporan*') ? 'active' : '' }}">
+
+
+                <a href="{{ url('/admin/laporan') }}"
+                    class="nav-item flex items-center px-4 py-3 rounded-lg {{ request()->is('admin/laporan*') ? 'active' : '' }}">
                     <i class="fas fa-chart-bar w-6 text-center mr-3"></i>
                     <span>Laporan</span>
                 </a>
-                
-                <a href="{{ url('/admin/users') }}" class="nav-item flex items-center px-4 py-3 rounded-lg {{ request()->is('admin/users*') ? 'active' : '' }}">
+
+                <a href="{{ url('/admin/users') }}"
+                    class="nav-item flex items-center px-4 py-3 rounded-lg {{ request()->is('admin/users*') ? 'active' : '' }}">
                     <i class="fas fa-users w-6 text-center mr-3"></i>
                     <span>Manajemen User</span>
                 </a>
             </nav>
         </div>
-        
+
         <div class="mt-auto p-6">
-            <a href="{{ route('logout') }}" class="logout-btn flex items-center justify-center px-4 py-3 rounded-lg font-medium">
+            <a href="{{ route('logout') }}"
+                class="logout-btn flex items-center justify-center px-4 py-3 rounded-lg font-medium">
                 <i class="fas fa-sign-out-alt mr-2"></i>
                 <span>Logout</span>
             </a>
@@ -133,4 +139,5 @@
         @yield('content')
     </main>
 </body>
+
 </html>

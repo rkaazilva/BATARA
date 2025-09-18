@@ -12,63 +12,64 @@
             --secondary: #11676a;
             --accent: #b0b32a;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #f5f7f9;
         }
-        
+
         .sidebar {
             background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transition: all 0.3s ease-in-out;
         }
-        
+
         .nav-item {
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
         }
-        
+
         .nav-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
             border-left: 4px solid var(--accent);
         }
-        
+
         .nav-item.active {
             background-color: rgba(255, 255, 255, 0.15);
             border-left: 4px solid var(--accent);
         }
-        
+
         .logout-btn {
             background-color: rgba(179, 42, 42, 0.8);
             transition: all 0.3s ease;
         }
-        
+
         .logout-btn:hover {
             background-color: rgba(179, 42, 42, 1);
             transform: translateY(-2px);
         }
-        
+
         .content-card {
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             border: 1px solid #eaeaea;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             transition: all 0.3s ease;
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(29, 70, 87, 0.3);
         }
-        
+
         .page-title {
             color: var(--primary);
             position: relative;
             padding-bottom: 15px;
         }
-        
+
         .page-title::after {
             content: '';
             position: absolute;
@@ -79,16 +80,16 @@
             background: var(--accent);
             border-radius: 2px;
         }
-        
+
         .table-header {
             background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
         }
-        
+
         .table-row:hover {
             background-color: #f8f9fa;
         }
-        
+
         .status-active {
             background-color: #e6f4ee;
             color: #0d6832;
@@ -97,7 +98,7 @@
             font-size: 0.875rem;
             font-weight: 500;
         }
-        
+
         .status-inactive {
             background-color: #fef0f0;
             color: #d93026;
@@ -106,20 +107,27 @@
             font-size: 0.875rem;
             font-weight: 500;
         }
-        
+
         .action-btn {
             transition: all 0.2s ease;
         }
-        
+
         .action-btn:hover {
             transform: scale(1.1);
+        }
+
+        /* Responsive Mobile Styles */
+        @media (max-width: 768px) {
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+            }
         }
     </style>
 </head>
 
-<body class="flex min-h-screen">
+<body class="flex flex-col md:flex-row min-h-screen">
     <!-- Sidebar -->
-    <aside class="sidebar w-64 text-white min-h-screen flex flex-col">
+    <aside id="sidebar" class="sidebar w-64 text-white min-h-screen flex flex-col fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 md:flex z-50">
         <div class="p-6">
             <div class="flex items-center space-x-3 mb-8">
                 <div class="p-3 rounded-lg bg-white bg-opacity-10">
@@ -127,31 +135,30 @@
                 </div>
                 <h1 class="text-2xl font-bold">Super Admin</h1>
             </div>
-            
+
             <nav class="space-y-2">
                 <a href="{{ url('/admin/dashboard') }}" class="nav-item flex items-center px-4 py-3 rounded-lg">
                     <i class="fas fa-home w-6 text-center mr-3"></i>
                     <span>Dashboard</span>
                 </a>
-                
+
                 <a href="{{ url('/admin/bumdes') }}" class="nav-item flex items-center px-4 py-3 rounded-lg active">
                     <i class="fas fa-building w-6 text-center mr-3"></i>
                     <span>Kelola BUMDES</span>
                 </a>
-                
-                
+
                 <a href="{{ url('/admin/laporan') }}" class="nav-item flex items-center px-4 py-3 rounded-lg">
                     <i class="fas fa-chart-bar w-6 text-center mr-3"></i>
                     <span>Laporan</span>
                 </a>
-                
+
                 <a href="{{ url('/admin/users') }}" class="nav-item flex items-center px-4 py-3 rounded-lg">
                     <i class="fas fa-users w-6 text-center mr-3"></i>
                     <span>Manajemen User</span>
                 </a>
             </nav>
         </div>
-        
+
         <div class="mt-auto p-6">
             <a href="{{ route('logout') }}" class="logout-btn flex items-center justify-center px-4 py-3 rounded-lg font-medium">
                 <i class="fas fa-sign-out-alt mr-2"></i>
@@ -161,8 +168,17 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-8">
-        <div class="flex justify-between items-center mb-6">
+    <main class="flex-1 p-4 md:p-8">
+        <!-- Mobile Header with Menu Button -->
+        <div class="flex justify-between items-center mb-6 md:hidden">
+            <h2 class="page-title text-xl font-bold">Kelola BUMDES</h2>
+            <button id="menu-toggle" class="text-gray-600 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Desktop Header -->
+        <div class="hidden md:flex justify-between items-center mb-6">
             <h2 class="page-title text-3xl font-bold">Kelola BUMDES</h2>
             <a href="{{ url('/admin/bumdes/create') }}" class="btn-primary text-white px-5 py-3 rounded-lg font-medium flex items-center">
                 <i class="fas fa-plus-circle mr-2"></i>
@@ -171,7 +187,7 @@
         </div>
 
         <!-- Filter dan Pencarian -->
-        <div class="content-card bg-white p-6 mb-6">
+        <div class="content-card bg-white p-4 md:p-6 mb-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="md:col-span-2">
                     <div class="relative">
@@ -190,7 +206,7 @@
         </div>
 
         <!-- Tabel BUMDES -->
-        <div class="content-card bg-white p-6">
+        <div class="content-card bg-white p-4 md:p-6">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead>
@@ -259,7 +275,7 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
                         <tr class="table-row">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -303,7 +319,7 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
                         <tr class="table-row">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -350,7 +366,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Pagination -->
             <div class="flex items-center justify-between mt-6 px-4">
                 <div class="text-sm text-gray-700">
@@ -376,5 +392,21 @@
             </div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menu-toggle');
+
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                if (sidebar.classList.contains('collapsed')) {
+                    sidebar.style.transform = 'translateX(-100%)';
+                } else {
+                    sidebar.style.transform = 'translateX(0)';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

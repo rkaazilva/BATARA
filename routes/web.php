@@ -38,9 +38,6 @@ Route::prefix('admin')->group(function () {
     // ❌ sebelumnya pakai view langsung, sekarang kita arahkan ke controller
     Route::get('/verifikasi-bumdes', [SuperAdminController::class, 'verifikasiBumdes'])
         ->name('superadmin.verifikasi_bumdes');
-        Route::get('/verifikasi-bumdes', [SuperAdminController::class, 'verifikasiBumdes'])
-     ->name('superadmin.verifikasi_bumdes');
-
 
     Route::get('/laporan', fn() => view('admin.laporan_admin'))->name('superadmin.laporan');
     Route::get('/users', fn() => view('admin.users_admin'))->name('superadmin.users');
